@@ -1,0 +1,83 @@
+# 1. Two Sum
+
+This solution solves the Two Sum problem by checking every possible pair of elements in the array.
+
+# Approach :-
+
+1) For each element, calculate:
+      complement = target - nums[i]
+2) If the complement exists in the map:
+      return indices {map[complement], i}
+3) Otherwise, store the current element in the map
+
+# Program:-
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> m;
+        for (int i = 0; i < nums.size(); i++) {
+            int comp = target - nums[i];
+            if (m.find(comp) != m.end()) {
+                return {m[comp], i};
+            }
+            m[nums[i]] = i;
+        }
+        return {};
+    }
+};
+
+
+
+
+# brute force approach
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        for(int i = 0; i < nums.size(); i++){
+            for(int j = i + 1; j < nums.size(); j++){
+                if(nums[i] == target - nums[j]){
+                    return {i, j};
+                }
+            }
+          }
+    }
+};
+
+
+
+# nLOGn complexity 
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<pair<int,int>> v; // {value, original index}
+        
+        // Store value with index
+        for(int i = 0; i < nums.size(); i++) {
+            v.push_back({nums[i], i});
+        }
+        
+        // Sort based on values
+        sort(v.begin(), v.end());
+        
+        int i = 0, j = v.size() - 1;
+        
+        while(i < j) {
+            int sum = v[i].first + v[j].first;
+            
+            if(sum == target) {
+                return {v[i].second, v[j].second};
+            }
+            else if(sum < target) {
+                i++;
+            }
+            else {
+                j--;
+            }
+        }
+        
+        return {};
+    }
+};
