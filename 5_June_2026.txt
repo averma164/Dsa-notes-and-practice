@@ -1,0 +1,45 @@
+# 118. Pascal's Triangle
+
+To Generate Pascal’s Triangle using an efficient mathematical formula instead of factorials.
+
+# Approach
+
+Each value in a row is computed using the previous value:
+  - C(n,r) = (C(n,r−1)×(n-r+1))/r
+1) Traverse for each row call the eachrow function with parameter i which is the no of row.
+2) The function returns a vector which has the elements calculated using the prev value of the vector,
+    1 is the default value every row has :-
+    - ans = ans * (row - i)
+    - ans = ans / i
+3) When the vector returns it is pushed to the main vector.
+4) return the main vector.
+
+# Complexity :-  
+  - Time Complexity : O(n²)
+  - Space Complexity: O(n²)
+
+# Program :-
+
+class Solution {
+public:
+    vector<int> eachrow(int row) {
+        long long ans = 1;
+        vector<int> rows;
+        rows.push_back(1);
+        
+        for(int i = 1; i < row; i++) {
+            ans = ans * (row - i);
+            ans = ans / i;
+            rows.push_back(ans);
+        }
+        
+        return rows;
+    }
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> ans;
+        for(int i=1;i<=numRows;i++){
+            ans.push_back(eachrow(i));
+        }
+        return ans;
+    }
+};
