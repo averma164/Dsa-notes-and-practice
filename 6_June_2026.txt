@@ -1,0 +1,47 @@
+# 2574. Left and Right Sum Differences
+
+Given an array nums, return a new array result such that:
+    - result[i] = |leftSum[i] - rightSum[i]|
+Where:
+    - leftSum[i] = sum of elements to the left of index i
+    - rightSum[i] = sum of elements to the right of index i
+
+# Approach :-
+
+1) Initialize three vectors :
+    - leftSum(n, 0)
+    - rightSum(n, 0)
+    - result(n)
+2) Apply the loop from i = 1 to n:
+    - Calculate leftSum[i] = leftSum[i-1] + nums[i-1]
+3) Apply the loop from i = n-2 to 0:
+    - Calculate rightSum[i] = rightSum[i+1] + nums[i+1]
+4) Apply the loop from i = 0 to n:
+    - result[i] = abs(leftSum[i] - rightSum[i])
+5) Return the result vector.
+
+# Complexity :-
+
+  - Time Complexity: O(n)
+  - Space Complexity: O(n)
+
+# Program :-
+
+class Solution {
+public:
+    vector<int> leftRightDifference(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> leftSum(n, 0), rightSum(n, 0), result(n);
+        int ans = 0;
+        for(int i = 1; i < n; i++){
+            leftSum[i] = leftSum[i-1] + nums[i-1];
+        }
+        for(int i = n-2; i >= 0; i--){
+            rightSum[i] = rightSum[i+1] + nums[i+1];
+        }
+        for(int i = 0; i < n; i++){
+            result[i] = abs(leftSum[i] - rightSum[i]);
+        }
+        return result;
+    }
+};
