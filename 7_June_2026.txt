@@ -1,0 +1,42 @@
+# 3954. Sum of Compatible Numbers in Range I
+
+You are given two integers `n` and `k`.
+A positive integer `x` is called **compatible** if it satisfies both:
+1) abs(n - x) <= k
+2) (n & x) == 0 (bitwise AND is zero)
+
+Return the sum of all compatible integers x.
+
+## Approach:-
+
+1) The condition abs(n - x) <= k defines a range:
+    - x ∈ [n - k, n + k]
+2) Since `x` must be positive:
+    - Start from max(1, n - k)
+3) For each number x in this range:
+    - Check if (n & x) == 0
+    - If true, add x to the result
+
+# Complexity :-
+
+- Time Complexity: O(k)
+- Space Complexity: O(1)
+
+# Program:-
+
+class Solution {
+public:
+    int sumOfGoodIntegers(int n, int k) {
+        int ans = 0;
+        int i = max(1, n - k);
+        int j = n + k;
+
+        for (int x = i; x <= j; x++) {
+            if ((n & x) == 0) {
+                ans += x;
+            }
+        }
+
+        return ans;
+    }
+};
