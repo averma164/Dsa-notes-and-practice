@@ -1,0 +1,46 @@
+# 238. Product of Array Except Self
+
+Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+Without Using Division operator.
+
+# Apporach :-
+
+We solve this using Prefix and Suffix Products.
+ans[i] = (product of elements before i) * (product of elements after i)
+1) Initiallize :-
+    - n = nums.size()
+    - vector ans(n,1) (n elements with value 1)
+    - suffix = 1
+2) Find the Prefix Sum :-
+    - Run a loop from i = 1 to i < n , i++
+    - Calculate ans[i] = ans[i-1] * nums[i -1]
+3) Finde the Suffix sum :-
+    - Run a loop from i = n-2 to i >= 0 , i--
+    - suffix = suffix * nums[i+1]
+    - ans[i] = ans[i] * suffix
+4) Return the vector ans
+
+# Complexity :-
+
+- Time Complexity :- O(n)
+- Space Complexity :- O(1)
+
+# Program :-
+
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int n= nums.size();
+        vector<int> ans(n,1);
+        
+        for(int i=1;i<n;i++){
+            ans[i] = ans[i-1]*nums[i-1];
+        }
+        int suffix=1;
+        for(int i=n-2;i>=0;i--){
+            suffix *= nums[i+1];
+            ans[i] *= suffix;
+        }
+        return ans;
+    }
+};
