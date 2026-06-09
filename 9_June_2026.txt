@@ -1,0 +1,88 @@
+# 155. Min Stack
+
+Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+
+# Approach :-
+
+When pushing a new minimum, store a modified value:
+  - encoded = 2*val - minVal
+When popping, decode previous minimum using:
+  - previousMin = 2*minVal - encoded
+1) Initialize(long long to avoid overflow) :-
+    - stack<long long int> s
+    - long long int minval
+2) push method :-
+    - Check if the stack is empty or not :
+        if empty:
+          - push the val
+          - minval = val
+        else:
+          - check if val is less then minval if yes:
+              - push the encoded val((long long )*2 val - minval)
+              - minval = val
+          - else:
+              - push the in the stack
+3) pop method :-
+    - Check if s.top is less than minval if yes:
+        - minval = 2*minval - s.top()
+    - pop 
+4) top method :-
+    - Check if s.top() is les than min val if yes:
+        - return minval
+    - else
+        - return s.top()
+5) getMin method :-
+    - Return minval
+
+# Complexity 
+
+- Time Complexity:
+    - push: O(1)
+    - pop: O(1)
+    - top: O(1)
+    - getMin: O(1)
+- Space Complexity: O(1) 
+
+# Program :-
+
+class MinStack {
+public:
+    stack<long long int> s;
+    long long int minVal;
+    MinStack() {
+        
+    }
+    
+    void push(int val) {
+        if(s.empty()){
+            s.push(val);
+            minVal = val;
+        }else{
+            if(val < minVal){
+                s.push((long long)2*val - minVal);
+                minVal = val;
+            }else{
+                s.push(val);
+            }
+        }
+    }
+    
+    void pop() {
+        if(s.top() < minVal){
+            minVal = 2*minVal - s.top();
+        }
+        s.pop();
+    }
+    
+    int top() {
+        if(s.top() < minVal){
+            return minVal;
+        }else{
+            return s.top();
+        }
+    }
+    
+    int getMin() {
+        return minVal;
+    }
+};
