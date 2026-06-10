@@ -1,0 +1,44 @@
+# 56. Merge Intervals
+
+Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and 
+return an array of the non-overlapping intervals that cover all the intervals in the input.
+
+# Approach :-
+
+1) Check if intervals is empty if yes return {}
+2) Sort the intervals :
+    - sort(intervals.begin(), intervals.end());
+3) Push the first element of intervals in ans
+    - ans.push_back(intervals[0]);
+4) Run a for loop from i = 1 to i = intevals.size() :
+    - check if the intervals[i][0] <= ans.back()[1] :
+        - ans.back()[1] = max(ans.back()[1] , intervals[i][1])
+    - if not then :
+        - ans.push_back(intervals[i])
+5) Return ans
+
+# Complexity :-
+
+- Time Complexity : O(n log n)
+- Space Complexity : O(n)
+
+# Program :- 
+
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        if (intervals.empty()) return {};
+        sort(intervals.begin(), intervals.end());
+        vector<vector<int>> ans;
+        ans.push_back(intervals[0]);
+        int n = intervals.size();
+        for(int i =1; i<n ;i++){
+            if(intervals[i][0] <= ans.back()[1]){
+                ans.back()[1] = max(ans.back()[1], intervals[i][1]);
+            }else{
+                ans.push_back(intervals[i]);
+            }
+        }
+        return ans;
+    }
+};
