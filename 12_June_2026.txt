@@ -1,0 +1,65 @@
+# 104. Maximum Depth of Binary Tree
+
+Given the root of a binary tree, return its maximum depth.
+
+# Approach :-
+
+Follow Level order Traversal (BFS)
+1) Check if root == NULL if so return 0
+2) Initialize :
+    - depth = 1
+    - queue<TreeNode*> q
+3) Push the first element and NULL in queue
+4) In while loop till q.size() > 0
+    - Initialize a node curr as q.front()
+    - Pop the element from the queue
+    - check if curr == NULL :
+        - check if not q.empty() :
+            - increase depth by one
+            - push NULL in queue
+            - continue
+        - else 
+            - break
+    - check if curr->left != NULL then :
+        - push curr->left in queue
+    - check if curr->right != NULL then :
+        - push curr->right in queue\
+5) Return depth
+
+# Complexity :- 
+
+Time Complexity : O(n) 
+Space Complexity : O(n)  
+
+# Program :-
+
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if (root == NULL) return 0;
+        int depth = 1;
+        queue<TreeNode*> q;
+        q.push(root);
+        q.push(NULL);
+        while(q.size() > 0){
+            TreeNode* curr = q.front();
+            q.pop();
+            if(curr == NULL){
+                if(!q.empty()){
+                    depth++;
+                    q.push(NULL);
+                    continue;
+                }else{
+                    break;
+                }
+            }
+            if(curr->left != NULL){
+                q.push(curr->left);
+            }
+            if(curr->right != NULL){
+                q.push(curr->right);
+            }
+        }
+        return depth;
+    }
+};
