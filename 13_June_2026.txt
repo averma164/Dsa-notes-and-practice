@@ -1,0 +1,41 @@
+# 3838. Weighted Word Mapping
+
+You are given an array of strings words, where each string represents a word containing lowercase English letters.
+You are also given an integer array weights of length 26, where weights[i] represents the weight of the ith lowercase English letter.
+Return a string formed by concatenating the mapped characters for all words in order.
+
+# Approach :-
+
+1) Initialize an empty result string ans.
+2) Traverse each word in the words array:
+3) For every character in the word:
+    - Find its weight using weights[ch - 'a']
+    - Add it to a running sum
+4) Compute val = sum % 26 to keep the value within alphabet range.
+5) Map this value to a character:
+    - Reverse mapping used:
+    - 'z' - val → gives characters from 'z' to 'a'
+6) Append the mapped character to the result string.
+7) Return the final string.
+
+# Complexity :-
+
+- Time Complexity : O(n × m)
+- Space Complexity : O(n)
+
+# Program :-
+
+class Solution {
+public:
+    string mapWordWeights(vector<string>& words, vector<int>& weights) {
+        string ans = "";
+        for(int i = 0; i<words.size();i++){
+            int sum = 0;
+            for(int j = 0; j<words[i].size();j++){
+            sum += weights[words[i][j] - 'a'];
+            }
+            ans += 'z' - (sum%26);
+        }
+        return ans;
+    }
+};
