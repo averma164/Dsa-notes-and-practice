@@ -1,0 +1,44 @@
+# 3959. Check Good Integer
+
+Given an integer n, check whether the difference between the sum of squares of its digits and the sum of its digits is at least 50. Return true if it satisfies the condition, otherwise return false.
+
+# Approach :-
+1) Initialize two variables:
+    - digitSum = 0
+    - squareSum = 0
+2) Traverse the digits of the number using a while loop:
+    - Extract last digit using n % 10
+    - Add it to digitSum
+    - Add its square to squareSum
+    - Remove last digit using n = n / 10
+3) After the loop:
+    - Check if (squareSum - digitSum) >= 50 If yes:
+    - Return true
+    - Otherwise:
+    - Return false
+
+# Complexity :-
+- Time Complexity : O(n)
+- Space Complexity : O(1)
+
+# Program :-
+
+class Solution {
+public:
+    bool checkGoodInteger(int n) {
+        int digitSum = 0;
+        int squareSum = 0;
+
+        while(n > 0){
+            int i = n % 10;
+            n = n / 10;
+            digitSum += i;
+            squareSum += i * i;
+        }
+
+        if((squareSum - digitSum) >= 50){
+            return true;
+        }
+        return false;
+    }
+};
