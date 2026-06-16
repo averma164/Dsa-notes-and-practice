@@ -1,0 +1,40 @@
+# 53. Maximum Subarray
+
+Given an integer array nums, find the subarray with the largest sum, and return its sum.
+
+# Approach :-
+
+1) Initialize two variables :
+    - curr_sum = 0 → to store current subarray sum
+    - max_sum = INT_MIN → to store maximum sum found so far
+2) Traverse the array using a loop :
+    - Add current element to curr_sum
+    - curr_sum += i
+3) Update max_sum :
+    - max_sum = max(curr_sum, max_sum)
+4) If curr_sum becomes negative :
+    - Reset it to 0
+    - curr_sum = 0
+5) Return max_sum
+
+# Complexity :-
+- Time Complexity : O(n)
+- Space Complexity : O(1)
+
+# Program :-
+
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int curr_sum=0;
+        int max_sum=INT_MIN;
+        for(int i : nums){
+            curr_sum += i;
+            max_sum=max(curr_sum,max_sum);
+            if(curr_sum<0){
+                curr_sum=0;
+            }
+        }
+        return max_sum;
+    }
+};
