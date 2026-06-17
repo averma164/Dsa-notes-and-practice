@@ -1,0 +1,43 @@
+# 110. Balanced Binary Tree
+
+A binary tree is height-balanced if for every node, the height difference between its left and right subtree is at most 1.
+
+# Approach :-
+
+1) Define a recursive function height(node)
+2) If node is NULL → return 0
+3) Recursively get:
+    - leftHeight = height(node->left)
+    - rightHeight = height(node->right)
+4) If:
+    - leftHeight == -1 OR rightHeight == -1 OR
+    - abs(leftHeight - rightHeight) > 1
+    - return -1 (unbalanced)
+5) Else:
+    - return 1 + max(leftHeight, rightHeight)
+6) Final answer:
+    - If height(root) == -1 → false
+    - Else → true
+
+# Complexity :-
+
+- Time Complexity : O(n) 
+- Space Complexity: O(h) (h = height of tree)
+
+# Program :-
+
+class Solution {
+public:
+    int checkHeight(TreeNode* root){
+        if(root == NULL) return 0;
+        int left = checkHeight(root->left);
+        if(left == -1) return -1;
+        int right = checkHeight(root->right);
+        if(right == -1) return -1;
+        if (abs(left - right) > 1) return -1;
+        return 1 + max(left, right);
+    }
+    bool isBalanced(TreeNode* root) {
+        return checkHeight(root) != -1;
+    }
+};
