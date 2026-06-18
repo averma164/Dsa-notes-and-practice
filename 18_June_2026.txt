@@ -1,0 +1,41 @@
+# 543. Diameter of Binary Tree
+
+Given the root of a binary tree, return the length of the diameter of the tree.
+The diameter is the length of the longest path between any two nodes in the tree.
+
+# Approach :-
+
+1) Use DFS (Depth-First Search) to calculate height.
+2) At each node:
+    - Compute left and right subtree heights
+3) Update diameter as:
+    - leftHeight + rightHeight
+4) Return height to parent.
+
+# Complexity :-
+
+- Time Complexity : O(n)
+- Space Complexity : O(h)
+
+# Program :-
+
+class Solution {
+public:
+    int ans = 0;
+    // Function to calculate height and update diameter
+    int height(TreeNode* root){
+        if(root == NULL){
+            return 0;
+        }
+        int lefth = height(root->left);
+        int righth = height(root->right);
+        // Update diameter at current node
+        ans = max(lefth+righth,ans);
+        // Update diameter at current node
+        return max(lefth , righth) + 1;
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        height(root);
+        return ans;
+    }
+};
