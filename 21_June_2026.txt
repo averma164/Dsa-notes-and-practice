@@ -1,0 +1,55 @@
+# 3969. Valid Subarrays With Matching Sum Digits I
+
+You are given an integer array nums and an integer digit x.
+A subarray nums[l..r] is considered valid if the sum of its elements satisfies both of the following conditions:
+The first digit of the sum is equal to x.
+The last digit of the sum is equal to x.
+Return the number of valid subarrays.
+
+# Approach :-
+
+1) Use a prefix sum array to efficiently compute subarray sums.
+2) For every subarray (i → j):
+    - Compute sum using:
+    - sum = prefixSum[j+1] - prefixSum[i]
+3) Check:
+    - Last digit → sum % 10 == x
+    - First digit → extract using helper function
+4) Count all valid subarrays.
+
+# Complexity :-
+- Time Complexity: O(n²)
+- Space Complexity: O(n)
+
+# Program :-
+
+class Solution {
+public:
+    int Firstdigit(long long sum){
+        sum = abs(sum);
+        while(sum >= 10){
+            sum = sum /10;
+        }
+        return sum;
+    }
+    int countValidSubarrays(vector<int>& nums, int x) {
+        int n = nums.size();
+        vector<long long> prefixSum(n+1,0);
+        for(int i=0; i<n; i++){
+            prefixSum[i+1] = prefixSum[i] + nums[i];
+        }
+        int count = 0;
+        for(int i=0; i<n; i++){
+            for(int j=i; j<n; j++){
+                long long sum = prefixSum[j+1] - prefixSum[i];
+                if(sum % 10  != x){
+                    continue;
+                }
+                if(Firstdigit(sum) == x){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+};
