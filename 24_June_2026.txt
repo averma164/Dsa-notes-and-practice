@@ -1,0 +1,39 @@
+# 704. Binary Search
+
+Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.
+
+# Approach :-
+
+We divide the search space into halves repeatedly:
+1) Find the middle element
+2) Compare it with the target:
+    - If equal → return index
+    - If target is greater → search right half
+    - If target is smaller → search left half
+
+# Complexity :- 
+
+- Time Complexity : O(log n)
+- Space Complexity : O(log n)
+
+# Program :-
+
+class Solution {
+public:
+    int binSearch(vector<int>& arr, int tar, int st, int end){
+        if(st <= end){
+            int mid =st + (end-st)/2;
+            if(arr[mid] == tar){
+                return mid;
+            }else if(arr[mid] < tar){
+                return binSearch(arr,tar,mid+1,end);
+            }else{
+                return binSearch(arr,tar,st,mid-1);
+            }
+        }
+        return -1;
+    }
+    int search(vector<int>& arr, int tar) {
+        return binSearch(arr,tar,0,arr.size()-1);
+    }
+};
