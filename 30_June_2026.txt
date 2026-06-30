@@ -1,0 +1,47 @@
+# 1358. Number of Substrings Containing All Three Characters
+
+Given a string s consisting only of characters a, b and c.
+Return the number of substrings containing at least one occurrence of all these characters a, b and c.
+
+# Approach :-
+
+Sliding Window (Two Pointers)
+1) Initialize two pointers:
+    - j → Left pointer
+    - i → Right pointer
+2) Maintain a frequency array cnt of size 3 for 'a', 'b', and 'c'.
+3) Expand the window by moving i and updating the character count.
+4) While the current window contains all three characters:
+    - Add n - i to the answer.
+    - Remove the leftmost character from the window.
+    - Move the left pointer (j) forward.
+5) Return the final answer.
+
+# Complexity :-
+
+Complexity Analysis
+- Time Complexity: O(n)
+    - Both pointers (i and j) traverse the string at most once.
+- Space Complexity: O(1)
+    - Only a frequency array of size 3 is used.
+
+# Program :-
+
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+        int n = s.size();
+        int j = 0;
+        int ans = 0;
+        vector<int> cnt(3, 0);
+        for (int i = 0; i < n; i++) {
+            cnt[s[i] - 'a']++;
+            while (cnt[0] > 0 && cnt[1] > 0 && cnt[2] > 0) {
+                ans += (n - i);
+                cnt[s[j] - 'a']--;
+                j++;
+            }
+        }
+        return ans;
+    }
+};
