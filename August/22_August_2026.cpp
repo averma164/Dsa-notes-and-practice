@@ -1,8 +1,9 @@
-// # 3432. Count Partitions with Even Sum Difference / Check Divisibility
+// # 3622. Check Divisibility by Digit Sum and Product
 
-// You are given an integer n.
-// A number is divisible by the sum and product of its digits if n is divisible by the sum of its digits plus the product of its digits (total = sum + product).
-// Return true if n is divisible by this total value, otherwise return false.
+// You are given a positive integer n. Determine whether n is divisible by the sum of the following two values:
+// The digit sum of n (the sum of its digits).
+// The digit product of n (the product of its digits).
+// Return true if n is divisible by this sum; otherwise, return false.
 
 // # Approach :-
 
